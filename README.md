@@ -21,6 +21,16 @@ No se modifica ni duplica el modelo: contiene exactamente lo necesario para los 
 2. En `backend`, copie `.env.example` como `.env`, complete `DATABASE_URL` y un `JWT_SECRET` aleatorio de 32+ caracteres; exporte esas variables y ejecute `go mod tidy; go run ./cmd/api`.
 3. En `mobile`, copie `.env.example` como `.env`, cambie la IP por la IP LAN del equipo que ejecuta Go (para dispositivo físico), ejecute `npm install` y `npx expo start`.
 
+### Después de reiniciar el equipo
+
+El frontend puede seguir abierto en `localhost:8081`, pero la API Go no se inicia automáticamente. Antes de crear una cuenta o iniciar sesión, abra PowerShell en `backend/` y ejecute:
+
+```powershell
+.\iniciar-api.ps1
+```
+
+Mantenga esa ventana abierta. Cuando aparezca `IAM API escuchando en :8080`, compruebe `http://localhost:8080/health`: debe responder `{"status":"ok"}`. Si el mensaje es **Failed to fetch**, significa que la API de ese puerto no está en ejecución; no es un error de inserción en la base de datos.
+
 ## Pruebas manuales
 
 Registro crea un registro en `identity.user`; un segundo registro devuelve 409. El login correcto devuelve sesión y `/api/me` es protegido; una contraseña incorrecta devuelve 401 y bloquea tras cinco intentos. Recuperación genera un registro en `session.password_reset_request`; en desarrollo el código aparece en la respuesta para completar el flujo, mientras que producción no lo revela y debe conectarse a correo. Restablecer la contraseña marca el token como usado, revoca sesiones existentes y permite un nuevo login.
