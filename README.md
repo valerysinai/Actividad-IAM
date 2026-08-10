@@ -38,3 +38,6 @@ Registro crea un registro en `identity.user`; un segundo registro devuelve 409. 
 ## Seguridad incluida
 
 Contraseñas con bcrypt, validación duplicada cliente/servidor, JWT firmado por secreto de entorno, CORS configurable, límite de payload, errores no sensibles, bloqueo temporal tras fallos, tokens aleatorios hasheados (SHA-256), expiración y transacciones para consumo de recuperación.
+
+## Link del video 
+https://youtu.be/I5pIx-W-LP0
